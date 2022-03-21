@@ -35,13 +35,9 @@ sound4=[]
     
 #sound = np.concatenate((sound1,sound2,sound3))   #sesleri birleştirme.   
 
+
 plt.plot(time[0:8000], sound3[0:8000])
-
-
 sd.play(sound3,fs)  
-
-
-
 
 #-----------------------------------------------------
 #                    1

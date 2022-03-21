@@ -10,6 +10,8 @@ def DFT(x): # To calculate DFT of a 1D real-valued signal x
     X = np.dot(e, x)
     return X
 
+
+
 sr = 8    # sampling rate
 ts = 1.0/sr # sampling interval
 t = np.arange(0,1,ts)
