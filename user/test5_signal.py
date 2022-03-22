@@ -12,4 +12,4 @@ sr = 100
 
 #sampling interval
 ts = 1.0/sr
-t  = np.arange(0, 1,)
+t  = np.arange(0, 1 ,sr)

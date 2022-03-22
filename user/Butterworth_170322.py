@@ -107,14 +107,12 @@ X_oneside1 =X1[:n_oneside1]/n_oneside1
 
 plt.figure(figsize = (12, 6))
 plt.subplot(325)
-plt.stem(f_oneside1, abs(X_oneside1), 'b', \
-         markerfmt=" ", basefmt="-b")
+plt.stem(f_oneside1, abs(X_oneside1), 'b', markerfmt=" ", basefmt="-b")
 plt.xlabel('Freq (Hz)')
 plt.ylabel('DFT Amplitude |X(freq)|')
 
 plt.subplot(326)
-plt.stem(f_oneside1, abs(X_oneside1), 'b', \
-         markerfmt=" ", basefmt="-b")
+plt.stem(f_oneside1, abs(X_oneside1), 'b', markerfmt=" ", basefmt="-b")
 plt.xlabel('Freq (Hz)')
 plt.xlim(0, 60)
 plt.tight_layout()
