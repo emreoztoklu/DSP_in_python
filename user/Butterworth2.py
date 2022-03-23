@@ -6,12 +6,12 @@ import soundfile as sf
 Ampl=[0, 1, 0.1, 0.01, 0.001, 0.0001]
 
 #sampling interval
-fs = 500           #freq
+fs = 44100          #freq
 ts = 1.0/fs         #period
 time = np.arange(0, 1, ts)
 
-S1_Amp      = 0.5
-S1_freq     = 40
+S1_Amp      = 1
+S1_freq     = 50
 S1_sig_len  = 1
 
 #---------------------------------------------------------------
@@ -48,8 +48,10 @@ for i in range (0, signal_lenght(fs, S1_sig_len)):
     samp1=  S1_Amp * np.sin(2 * np.pi *(S1_freq) * i/fs)
     samp2=  S1_Amp/2 * np.sin(2 * np.pi *(300) * i/fs)
     noise= 0.25*(np.random.rand()-0.5)
-    sound.append ( samp1 + samp2 + noise)
-
+    sound.append ( samp1 )
+    
+sd.play(sound, 44100)
+sf.write('sound.wav', sound, 44100)
 #---------------------------------------------------------------
 
 X = DFT(sound)
@@ -101,6 +103,5 @@ axs[2, 1].stem(f_oneside, abs(X1_oneside), 'b', markerfmt=" ", basefmt="-b")
 plt.tight_layout()
 
 
-
-
+sd.play(sound, 44100)
         
