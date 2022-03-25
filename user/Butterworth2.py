@@ -6,12 +6,12 @@ import soundfile as sf
 Ampl=[0, 1, 0.1, 0.01, 0.001, 0.0001]
 
 #sampling interval
-fs = 44100          #freq
+fs = 4096        #freq
 ts = 1.0/fs         #period
 time = np.arange(0, 1, ts)
 
 S1_Amp      = 1
-S1_freq     = 50
+S1_freq     = 100
 S1_sig_len  = 1
 
 #---------------------------------------------------------------
@@ -24,34 +24,35 @@ def DFT(src_signal): # To calculate DFT of a 1D real-valued signal x
     return X
 
 def low_passfilter(src_sound_arr, sample_number):
+    fltsound=[]
     A=0
     B=0
-    fltsound=[]
-    for i in range (0,sample_number):
-        X=src_sound_arr[i]
-        E=X+1.1429*A-0.4127*B
-        Y=0.067*E+0.135*A+0.067*B
+    for i in range (0, sample_number):
+        X = src_sound_arr[i]
+        E = X + 1.1429 * A - 0.4127 * B
+        Y = 0.067 * E + 0.135 * A + 0.067 * B
         fltsound.append(Y)
-        B=A
-        A=E
+        B = A
+        A = E
     return  fltsound 
 
 
 def signal_lenght(sample_freq, second):
     return int(sample_freq * second)
 
+
 #---------------------------------------------------------------
 
 sound=[]
 
 for i in range (0, signal_lenght(fs, S1_sig_len)):
-    samp1=  S1_Amp * np.sin(2 * np.pi *(S1_freq) * i/fs)
-    samp2=  S1_Amp/2 * np.sin(2 * np.pi *(300) * i/fs)
+    samp1=  S1_Amp * np.sin(2 * np.pi * (S1_freq) * i/fs)
+    samp2=  S1_Amp * np.cos(2 * np.pi * (S1_freq) * i/fs * 0.05)
     noise= 0.25*(np.random.rand()-0.5)
-    sound.append ( samp1 )
+    sound.append ( samp1 * samp2)
     
-sd.play(sound, 44100)
-sf.write('sound.wav', sound, 44100)
+sd.play(sound, fs)
+sf.write('sound.wav', sound, fs)
 #---------------------------------------------------------------
 
 X = DFT(sound)
@@ -79,7 +80,7 @@ X_oneside  =  X[:n_oneside]/n_oneside
 X1_oneside = X1[:n_oneside]/n_oneside
 
 fig, axs = plt.subplots(3,2)
-axs[0, 0].plot(time[0:200],sound[0:200])
+axs[0, 0].plot(time[0:512],sound[0:512])
 axs[0, 0].set_title('İnput Signal')
 
 
@@ -96,12 +97,9 @@ axs[2, 0].set_title('DFT Amplitude |X(freq)|')
 
 axs[1, 1].stem(f_oneside,  abs(X1_oneside), 'b', markerfmt=" ", basefmt="-b")
 
-axs[2, 1].stem(f_oneside, abs(X1_oneside), 'b', markerfmt=" ", basefmt="-b")
-
-
-
+plt.xlim(0, 60)
 plt.tight_layout()
 
+axs[2, 1].stem(f_oneside, abs(X1_oneside), 'b', markerfmt=" ", basefmt="-b")
 
-sd.play(sound, 44100)
         
