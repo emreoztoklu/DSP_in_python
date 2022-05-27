@@ -1,0 +1,21 @@
+from PyQt5.QtWidgets import QApplication, QMainWindow
+import sys
+
+
+sc_size_width  = 1920
+sc_size_height = 1080
+
+class Window(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+        
+    def initUI(self):
+        self.setGeometry(sc_size_width/4, sc_size_height/4 , 800, 600)
+
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = Window()
+    window.show()
+    sys.exit(app.exec())
